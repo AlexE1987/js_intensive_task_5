@@ -8,9 +8,10 @@ class Node {
 class Stack {
   constructor(stackMaxSize = 10) {
     this.stackMaxSize = stackMaxSize;
+    if (!isFinite(this.stackMaxSize)) throw new Error('Max size value is invalid');
+
     this.stackSize = 0;
     this.top = null;
-    if (!isFinite(this.stackMaxSize)) throw new Error('Max size value is invalid');
   }
 
   push(elem) {
@@ -27,12 +28,10 @@ class Stack {
 
     let topElem = this.top.elem;
     this.top = this.top.prevElemLink;
-
     return topElem;
   }
   peek() {
     if (this.stackSize === 0) return null;
-
     return this.top.elem;
   }
   isEmpty() {
@@ -42,7 +41,7 @@ class Stack {
     const stackArray = [];
     let arrayElements = this.top;
 
-    for (let i = 0; i < this.stackSize; i++) {
+    while (arrayElements) {
       stackArray.push(arrayElements.elem);
       arrayElements = arrayElements.prevElemLink;
     }
